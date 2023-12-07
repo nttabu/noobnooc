@@ -44,7 +44,7 @@ export default function ProjectsPage() {
             ) : (
               <div
                 className={twMerge(
-                  "flex h-14 w-14 items-center justify-center rounded-lg font-serif text-4xl font-bold",
+                  "flex h-14 w-14 items-center justify-center rounded-lg font-mono text-4xl font-bold text-white ",
                   `bg-${project.color}-500`
                 )}
               >

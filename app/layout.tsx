@@ -50,11 +50,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh" className="">
-      <body className="bg-indigo-50 text-black dark:bg-neutral-900 dark:text-indigo-50">
+      <body className="bg-slate-50 text-black dark:bg-neutral-900 dark:text-slate-50">
         <header className="text-md h-20">
           <div className="h-40 w-full">
-            <div className="sticky top-0 z-10 w-full bg-indigo-50  dark:bg-neutral-900">
-              <div className="w-full bg-white/50 dark:bg-indigo-100/5">
+            <div className="sticky top-0 z-10 w-full bg-white/50  dark:bg-neutral-900">
+              <div className="w-full bg-white/50 dark:bg-slate-100/5">
                 <hr />
                 <div className="mx-auto flex h-20 w-full max-w-screen-lg items-center justify-between gap-4 px-4 py-6">
                   <Link className="flex items-center gap-4" href="/">
@@ -86,7 +86,7 @@ export default function RootLayout({
 
         {children}
 
-        <footer className="text-md bg-white/50 text-sm dark:bg-indigo-100/5">
+        <footer className="text-md bg-white/50 text-sm dark:bg-slate-100/5">
           <hr />
           <div className="mx-auto flex w-full max-w-screen-lg flex-col justify-between gap-4 px-4 py-10 sm:flex-row">
             <nav className="opacity-80">
