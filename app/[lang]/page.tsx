@@ -9,14 +9,15 @@ import {
   SiTypescript,
 } from "@icons-pack/react-simple-icons";
 import { ReactNode } from "react";
-import Card from "../components/card";
-import ProfileCard from "../components/profile-card";
+import Card from "../../components/card";
+import ProfileCard from "../../components/profile-card";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import subnooc from "../public/subnooc.png";
-import { shuffleArray } from "../lib/array";
-import { COMMENTS } from "../data/comments";
-import { PROJECTS } from "../data/projects";
+import subnooc from "../../public/subnooc.png";
+import { shuffleArray } from "../../lib/array";
+import { COMMENTS } from "../../data/comments";
+import { PROJECTS } from "../../data/projects";
+import { getDictionary } from "../../dictionaries";
 
 const playingItems = [
   {
@@ -100,11 +101,23 @@ function Label({
   );
 }
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: {
+    lang: string;
+  }
+}) {
+  const dictionary = await getDictionary(params.lang);
+
   return (
     <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-4 px-4 py-10">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <ProfileCard className="bottom-0 aspect-auto self-start sm:sticky sm:top-10 sm:aspect-square" />
+        <ProfileCard 
+          className="bottom-0 aspect-auto self-start sm:sticky sm:top-10 sm:aspect-square"
+          motto={dictionary.meta.motto}
+          bio={dictionary.meta.bio}
+        />
         <div className="grid grid-cols-2 gap-4 self-start">
           <Card
             className="flex aspect-square flex-col bg-blue-300/10 dark:bg-blue-400/10"
@@ -142,9 +155,9 @@ export default function Home() {
           >
             <EnvelopeIcon className="mb-auto h-10 w-10 text-green-500 sm:h-14 sm:w-14" />
             <Subtitle className="self-end">nooc@nooc.me</Subtitle>
-            <Title className="self-end text-green-500">邮箱</Title>
+            <Title className="self-end text-green-500">{dictionary.labels.email}</Title>
           </Card>
-          <Label className="col-span-2 mt-4">在做什么</Label>
+          <Label className="col-span-2 mt-4">{dictionary.labels.doing}</Label>
           {PROJECTS.filter((project) => project.primary).map((project) => (
             <Card
               key={project.name}
@@ -154,7 +167,7 @@ export default function Home() {
               <Image
                 className="absolute inset-0 -z-10 h-full w-full rounded-lg"
                 src={project.image!}
-                alt={`${project.name}的图标`}
+                alt={dictionary.labels.icon(project.name)}
               />
               <div className="mt-auto flex flex-col items-end self-end overflow-hidden rounded-lg bg-white/80 px-3 py-1 shadow dark:bg-black/50">
                 <Subtitle className="mt-auto hidden self-end text-sm sm:block">
@@ -165,7 +178,7 @@ export default function Home() {
             </Card>
           ))}
 
-          <Label className="col-span-2 mt-4">在写什么</Label>
+          <Label className="col-span-2 mt-4">{dictionary.labels.writing}</Label>
           <Card
             className="flex aspect-square flex-col bg-red-300/10 dark:bg-red-400/10"
             link="https://subnooc.com"
@@ -191,7 +204,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Label className="mt-4">在玩什么</Label>
+      <Label className="mt-4">{dictionary.labels.playing}</Label>
       <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-3">
         {playingItems.map((playingItem) => (
           <Card
@@ -215,7 +228,7 @@ export default function Home() {
         ))}
       </div>
 
-      <Label className="mt-4">他们说</Label>
+      <Label className="mt-4">{dictionary.labels.friends}</Label>
       <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-3">
         {shuffleArray(COMMENTS)
           .slice(0, 6)

@@ -1,6 +1,6 @@
-import Card from "../../components/card";
-import { PROJECTS } from "../../data/projects";
-import { SEO } from "../../data/seo";
+import Card from "../../../components/card";
+import { PROJECTS } from "../../../data/projects";
+import { SEO } from "../../../data/seo";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 

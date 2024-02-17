@@ -1,10 +1,11 @@
-import "../styles/globals.css";
+import "../../styles/globals.css";
 
 import { Metadata } from "next";
 import Image from "next/image";
-import avatar from "../public/avatar.png";
-import { SEO } from "../data/seo";
+import avatar from "../../public/avatar.png";
+import { SEO } from "../../data/seo";
 import Link from "next/link";
+import { getDictionary } from "../../dictionaries";
 
 export const metadata: Metadata = {
   title: SEO.title,
@@ -41,13 +42,19 @@ const bottomNavItems = [
   },
 ];
 
-export default function RootLayout({
+export default async function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: {
+    lang: string;
+  };
 }) {
+  const dictionary = await getDictionary(params.lang);
+
   return (
     <html lang="zh" className="">
       <body className="bg-slate-50 text-black dark:bg-neutral-900 dark:text-slate-50">
@@ -64,16 +71,16 @@ export default function RootLayout({
                       alt="Nooc Avatar"
                     />
                     <h1 className="font-bold opacity-80 sm:inline">
-                      Nooc 的主页
+                      {dictionary.meta.websiteName}
                     </h1>
                   </Link>
                   <nav className="font-light">
                     <ul className="flex gap-4">
                       <li>
-                        <Link href="/">主页</Link>
+                        <Link href="/">{dictionary.labels.home}</Link>
                       </li>
                       <li>
-                        <Link href="/projects">项目</Link>
+                        <Link href="/works">{dictionary.labels.works}</Link>
                       </li>
                     </ul>
                   </nav>
