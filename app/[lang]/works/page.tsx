@@ -31,7 +31,7 @@ export default function ProjectsPage() {
             key={project.name}
             className={twMerge(
               "flex flex-col gap-4 sm:flex-row",
-              `bg-${project.color}-300/10 dark:bg-${project.color}-400/10`
+              `bg-${project.color}-300/10 dark:bg-${project.color}-400/10`,
             )}
             link={project.link}
           >
@@ -45,7 +45,7 @@ export default function ProjectsPage() {
               <div
                 className={twMerge(
                   "flex h-14 w-14 items-center justify-center rounded-lg font-mono text-4xl font-bold text-white ",
-                  `bg-${project.color}-500`
+                  `bg-${project.color}-500`,
                 )}
               >
                 {project.name[0]}
