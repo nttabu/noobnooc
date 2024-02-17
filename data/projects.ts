@@ -2,8 +2,17 @@ import AssisChat from "../public/assischat.png";
 import lofyee from "../public/lofyee.png";
 import subnooc from "../public/subnooc.png";
 import quwu from "../public/quwu.png";
+import youminco from '../public/youminco.png'
 
 export const PROJECTS = [
+  {
+    name: '游民CO',
+    summary: '数字游民资讯网站',
+    image: youminco,
+    link: 'https://youmin.co',
+    color: 'blue',
+    primary: true,
+  },
   {
     name: "趣物",
     summary: "收集有趣物品的网站",
