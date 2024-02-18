@@ -1,13 +1,5 @@
-import { CameraIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
-import {
-  SiBlender,
-  SiGithub,
-  SiNintendoswitch,
-  SiSketch,
-  SiSwift,
-  SiTwitter,
-  SiTypescript,
-} from "@icons-pack/react-simple-icons";
+import { EnvelopeIcon } from "@heroicons/react/24/solid";
+import { SiGithub, SiTwitter } from "@icons-pack/react-simple-icons";
 import { ReactNode } from "react";
 import Card from "../../components/card";
 import ProfileCard from "../../components/profile-card";
@@ -15,49 +7,9 @@ import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import subnooc from "../../public/subnooc.png";
 import { shuffleArray } from "../../lib/array";
-import { COMMENTS } from "../../data/comments";
-import { PROJECTS } from "../../data/projects";
 import { getDictionary } from "../../dictionaries";
 
-const playingItems = [
-  {
-    name: "TypeScript",
-    icon: SiTypescript,
-    summary: "最常使用的编程语言, 常搭配使用的有 Node / React / Tailwind 等。",
-    color: "blue",
-  },
-  {
-    name: "Swift",
-    icon: SiSwift,
-    summary:
-      "最近在学习苹果生态的程序设计, 常搭配使用的有 SwiftUI / Combine 。",
-    color: "amber",
-  },
-  {
-    name: "Sketch",
-    icon: SiSketch,
-    summary: "偶尔也弄弄设计, 但不太熟。现在用 Figma 比较多。",
-    color: "yellow",
-  },
-  {
-    name: "Blender",
-    icon: SiBlender,
-    summary: "尝试学习过很多次, 每次都是照着教程弄一遍就放弃了。",
-    color: "orange",
-  },
-  {
-    name: "Switch",
-    icon: SiNintendoswitch,
-    summary: "有一台 Switch, 但上面很多灰, 还有一台灰更多的 PS4 。",
-    color: "rose",
-  },
-  {
-    name: "摄影",
-    icon: CameraIcon,
-    summary: "有一台 Sony a7c, 但不知道电池还有没有电。",
-    color: "cyan",
-  },
-];
+export const runtime = "edge";
 
 function Title({
   className,
@@ -106,14 +58,14 @@ export default async function Home({
 }: {
   params: {
     lang: string;
-  }
+  };
 }) {
   const dictionary = await getDictionary(params.lang);
 
   return (
     <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-4 px-4 py-10">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <ProfileCard 
+        <ProfileCard
           className="bottom-0 aspect-auto self-start sm:sticky sm:top-10 sm:aspect-square"
           motto={dictionary.meta.motto}
           bio={dictionary.meta.bio}
@@ -155,28 +107,32 @@ export default async function Home({
           >
             <EnvelopeIcon className="mb-auto h-10 w-10 text-green-500 sm:h-14 sm:w-14" />
             <Subtitle className="self-end">nooc@nooc.me</Subtitle>
-            <Title className="self-end text-green-500">{dictionary.labels.email}</Title>
+            <Title className="self-end text-green-500">
+              {dictionary.labels.email}
+            </Title>
           </Card>
           <Label className="col-span-2 mt-4">{dictionary.labels.doing}</Label>
-          {PROJECTS.filter((project) => project.primary).map((project) => (
-            <Card
-              key={project.name}
-              className="relative flex aspect-square flex-col bg-green-300/10 dark:bg-yellow-400/10"
-              link={project.link}
-            >
-              <Image
-                className="absolute inset-0 -z-10 h-full w-full rounded-lg"
-                src={project.image!}
-                alt={dictionary.labels.icon(project.name)}
-              />
-              <div className="mt-auto flex flex-col items-end self-end overflow-hidden rounded-lg bg-white/80 px-3 py-1 shadow dark:bg-black/50">
-                <Subtitle className="mt-auto hidden self-end text-sm sm:block">
-                  {project.summary}
-                </Subtitle>
-                <Title className="self-end font-normal">{project.name}</Title>
-              </div>
-            </Card>
-          ))}
+          {dictionary.works
+            .filter((work) => work.primary)
+            .map((work) => (
+              <Card
+                key={work.name}
+                className="relative flex aspect-square flex-col bg-green-300/10 dark:bg-yellow-400/10"
+                link={work.link}
+              >
+                <Image
+                  className="absolute inset-0 -z-10 h-full w-full rounded-lg"
+                  src={work.image!}
+                  alt={dictionary.labels.icon(work.name)}
+                />
+                <div className="mt-auto flex flex-col items-end self-end overflow-hidden rounded-lg bg-white/80 px-3 py-1 shadow dark:bg-black/50">
+                  <Subtitle className="mt-auto hidden self-end text-sm sm:block">
+                    {work.summary}
+                  </Subtitle>
+                  <Title className="self-end font-normal">{work.name}</Title>
+                </div>
+              </Card>
+            ))}
 
           <Label className="col-span-2 mt-4">{dictionary.labels.writing}</Label>
           <Card
@@ -206,12 +162,12 @@ export default async function Home({
 
       <Label className="mt-4">{dictionary.labels.playing}</Label>
       <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-3">
-        {playingItems.map((playingItem) => (
+        {dictionary.playingItems.map((playingItem) => (
           <Card
             key={playingItem.name}
             className={twMerge(
               "flex aspect-square flex-col sm:aspect-video",
-              `bg-${playingItem.color}-300/10 dark:bg-${playingItem.color}-400/10`
+              `bg-${playingItem.color}-300/10 dark:bg-${playingItem.color}-400/10`,
             )}
           >
             <Title className={`text-${playingItem.color}-500`}>
@@ -221,7 +177,7 @@ export default async function Home({
             <playingItem.icon
               className={twMerge(
                 "mt-auto h-10 w-10 self-end",
-                `text-${playingItem.color}-500`
+                `text-${playingItem.color}-500`,
               )}
             />
           </Card>
@@ -230,14 +186,14 @@ export default async function Home({
 
       <Label className="mt-4">{dictionary.labels.friends}</Label>
       <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-3">
-        {shuffleArray(COMMENTS)
+        {shuffleArray(dictionary.friendComments)
           .slice(0, 6)
           .map((comment) => (
             <Card
               key={comment.name}
               className={twMerge(
                 "flex aspect-square flex-col justify-between sm:aspect-video",
-                `bg-${comment.color}-300/10 dark:bg-${comment.color}-400/10`
+                `bg-${comment.color}-300/10 dark:bg-${comment.color}-400/10`,
               )}
               link={comment.link}
             >

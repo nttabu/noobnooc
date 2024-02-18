@@ -3,25 +3,34 @@ import "../../styles/globals.css";
 import { Metadata } from "next";
 import Image from "next/image";
 import avatar from "../../public/avatar.png";
-import { SEO } from "../../data/seo";
 import Link from "next/link";
 import { getDictionary } from "../../dictionaries";
 
-export const metadata: Metadata = {
-  title: SEO.title,
-  description: SEO.description,
-  keywords: SEO.fillKeywords(),
-  openGraph: {
-    title: SEO.title,
-    description: SEO.description,
-  },
-  twitter: {
-    title: SEO.title,
-    description: SEO.description,
-    site: "@noobnooc",
-    card: "summary_large_image",
-  },
-};
+export const runtime = "edge";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  const dictionary = await getDictionary(params.lang);
+
+  return {
+    title: dictionary.meta.websiteName,
+    description: dictionary.meta.motto,
+    keywords: dictionary.meta.fillKeywords([]),
+    openGraph: {
+      title: dictionary.meta.websiteName,
+      description: dictionary.meta.motto,
+    },
+    twitter: {
+      title: dictionary.meta.websiteName,
+      description: dictionary.meta.motto,
+      site: "@noobnooc",
+      card: "summary_large_image",
+    },
+  };
+}
 
 const bottomNavItems = [
   {
@@ -56,7 +65,7 @@ export default async function RootLayout({
   const dictionary = await getDictionary(params.lang);
 
   return (
-    <html lang="zh" className="">
+    <html lang={params.lang} className="">
       <body className="bg-slate-50 text-black dark:bg-neutral-900 dark:text-slate-50">
         <header className="text-md h-20">
           <div className="h-40 w-full">
