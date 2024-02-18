@@ -28,6 +28,7 @@ import youminco from "../public/youminco.png";
 
 const dictionary = {
   meta: {
+    baseUrl: "https://nooc.me",
     websiteName: "Nooc 的主页",
     motto: "游离于存在与虚无间的理想主义者",
     bio: `

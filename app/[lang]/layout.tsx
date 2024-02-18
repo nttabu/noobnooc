@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import avatar from "../../public/avatar.png";
 import Link from "next/link";
-import { getDictionary } from "../../dictionaries";
+import { dictionaryKeys, getDictionary } from "../../dictionaries";
 
 export const runtime = "edge";
 
@@ -15,19 +15,32 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
 
+  const langEntries = await Promise.all(
+    dictionaryKeys.map(async (lang) => {
+      const dictionary = await getDictionary(lang);
+
+      return [lang, dictionary.urls.home];
+    }),
+  );
+
   return {
+    metadataBase: new URL(dictionary.meta.baseUrl),
     title: dictionary.meta.websiteName,
     description: dictionary.meta.motto,
     keywords: dictionary.meta.fillKeywords([]),
     openGraph: {
       title: dictionary.meta.websiteName,
       description: dictionary.meta.motto,
+      siteName: dictionary.meta.websiteName,
     },
     twitter: {
       title: dictionary.meta.websiteName,
       description: dictionary.meta.motto,
       site: "@noobnooc",
       card: "summary_large_image",
+    },
+    alternates: {
+      languages: Object.fromEntries(langEntries),
     },
   };
 }

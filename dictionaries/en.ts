@@ -28,6 +28,7 @@ import youminco from "../public/youminco.png";
 
 const dictionary = {
   meta: {
+    baseUrl: "https://nooc.me",
     websiteName: "Nooc's Yard",
     motto: "A noob named Nooc.",
     bio: `
