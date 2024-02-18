@@ -1,10 +1,12 @@
-import { CameraIcon } from "@heroicons/react/24/solid";
+import { CameraIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import {
   SiBlender,
+  SiGithub,
   SiNintendoswitch,
   SiSketch,
   SiSwift,
   SiTypescript,
+  SiX,
 } from "@icons-pack/react-simple-icons";
 
 import avatar from "../public/avatar.png";
@@ -78,7 +80,7 @@ A fan of Serverless.
     playing: "Playing",
     writing: "Writing",
     friends: "Friends",
-    email: "Email",
+    contactMe: "Contact Me",
     icon(label: string) {
       return `Icon for ${label}`;
     },
@@ -263,6 +265,32 @@ A fan of Serverless.
       link: "https://twitter.com/ph_summary",
       color: "orange",
       primary: false,
+    },
+  ],
+  contacts: [
+    {
+      label: "X (中文)",
+      name: "@noobnooc",
+      link: "https://x.com/noobnooc",
+      icon: SiX,
+    },
+    {
+      label: "X (English)",
+      name: "@WeeloneHQ",
+      link: "https://x.com/WeeLoneHQ",
+      icon: SiX,
+    },
+    {
+      label: "GitHub",
+      name: "@noobnooc",
+      link: "https://github.com/noobnooc",
+      icon: SiGithub,
+    },
+    {
+      label: "Email",
+      name: "nooc@nooc.me",
+      link: "mailto:nooc@nooc.me",
+      icon: EnvelopeIcon,
     },
   ],
 };

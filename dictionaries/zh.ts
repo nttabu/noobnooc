@@ -1,10 +1,12 @@
-import { CameraIcon } from "@heroicons/react/24/solid";
+import { CameraIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import {
   SiBlender,
+  SiGithub,
   SiNintendoswitch,
   SiSketch,
   SiSwift,
   SiTypescript,
+  SiX,
 } from "@icons-pack/react-simple-icons";
 
 import avatar from "../public/avatar.png";
@@ -77,7 +79,7 @@ Serverless 爱好者。
     playing: "在玩什么",
     writing: "在写什么",
     friends: "他们说",
-    email: "邮箱",
+    contactMe: "联系我",
     icon(label: string) {
       return `${label}的图标`;
     },
@@ -258,6 +260,32 @@ Serverless 爱好者。
       link: "https://twitter.com/ph_summary",
       color: "orange",
       primary: false,
+    },
+  ],
+  contacts: [
+    {
+      label: "X (中文)",
+      name: "@noobnooc",
+      link: "https://x.com/noobnooc",
+      icon: SiX,
+    },
+    {
+      label: "X (English)",
+      name: "@WeeloneHQ",
+      link: "https://x.com/WeeLoneHQ",
+      icon: SiX,
+    },
+    {
+      label: "GitHub",
+      name: "@noobnooc",
+      link: "https://github.com/noobnooc",
+      icon: SiGithub,
+    },
+    {
+      label: "邮箱",
+      name: "nooc@nooc.me",
+      link: "mailto:nooc@nooc.me",
+      icon: EnvelopeIcon,
     },
   ],
 };
