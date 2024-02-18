@@ -65,6 +65,10 @@ A fan of Serverless.
       ];
     },
   },
+  urls: {
+    home: "/en",
+    works: "/en/works",
+  },
   labels: {
     home: "Home",
     works: "Works",

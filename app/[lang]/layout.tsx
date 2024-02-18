@@ -73,7 +73,10 @@ export default async function RootLayout({
               <div className="w-full bg-white/50 dark:bg-slate-100/5">
                 <hr />
                 <div className="mx-auto flex h-20 w-full max-w-screen-lg items-center justify-between gap-4 px-4 py-6">
-                  <Link className="flex items-center gap-4" href="/">
+                  <Link
+                    className="flex items-center gap-4"
+                    href={dictionary.urls.home}
+                  >
                     <Image
                       className="h-8 w-8 rounded-lg"
                       src={avatar}
@@ -86,10 +89,14 @@ export default async function RootLayout({
                   <nav className="font-light">
                     <ul className="flex gap-4">
                       <li>
-                        <Link href="/">{dictionary.labels.home}</Link>
+                        <Link href={dictionary.urls.home}>
+                          {dictionary.labels.home}
+                        </Link>
                       </li>
                       <li>
-                        <Link href="/works">{dictionary.labels.works}</Link>
+                        <Link href={dictionary.urls.works}>
+                          {dictionary.labels.works}
+                        </Link>
                       </li>
                     </ul>
                   </nav>

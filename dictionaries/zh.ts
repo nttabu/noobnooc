@@ -64,6 +64,10 @@ Serverless 爱好者。
       ];
     },
   },
+  urls: {
+    home: "/zh",
+    works: "/zh/works",
+  },
   labels: {
     home: "主页",
     works: "作品",
