@@ -7,7 +7,7 @@ let defaultLocale = "en";
 
 function getLocale(request: NextRequest) {
   let languages = new Negotiator({
-    headers: Object.fromEntries(Object.entries(request.headers)),
+    headers: Object.fromEntries(request.headers.entries()),
   })
     .languages()
     .filter((lang) => {
